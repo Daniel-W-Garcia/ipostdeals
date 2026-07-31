@@ -1,0 +1,84 @@
+---
+// src/components/Header.astro
+---
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <span class="logo-icon">📦</span>
+      <span class="logo-text">iPostDeals</span>
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/deals/">Deals</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+  }
+
+  .header-inner {
+      max-width: var(--content-width);
+      margin-inline: auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1.25rem;
+  }
+
+  .logo:hover {
+      color: var(--text-primary);
+      opacity: 0.85;
+  }
+
+  .logo-icon {
+      font-size: 1.5rem;
+  }
+
+  nav {
+      display: flex;
+      gap: 1.5rem;
+  }
+
+  nav a {
+      font-size: 0.925rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 540px) {
+      .logo-text {
+          display: none;
+      }
+      nav {
+          gap: 1rem;
+      }
+  }
+</style>

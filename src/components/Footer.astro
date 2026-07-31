@@ -1,0 +1,68 @@
+---
+// src/components/Footer.astro
+---
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p>&copy; {new Date().getFullYear()} iPostDeals. All rights reserved.</p>
+    </div>
+    <div class="footer-links">
+      <a href="/privacy/">Privacy Policy</a>
+      <span class="separator">·</span>
+      <a href="/terms/">Terms of Service</a>
+      <span class="separator">·</span>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      background-color: var(--bg-secondary);
+  }
+
+  .footer-inner {
+      max-width: var(--content-width);
+      margin-inline: auto;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+  }
+
+  .footer-left p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+  }
+
+  .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+  }
+
+  .footer-links a {
+      color: var(--text-secondary);
+  }
+
+  .footer-links a:hover {
+      color: var(--text-primary);
+  }
+
+  .separator {
+      color: var(--border-light);
+  }
+
+  @media (max-width: 540px) {
+      .footer-inner {
+          flex-direction: column;
+          text-align: center;
+      }
+  }
+</style>

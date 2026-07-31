@@ -1,17 +1,118 @@
 ---
-
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+	title="Find the Best Deals — Curated Daily"
+	description="iPostDeals finds and shares the best online deals across tech, gadgets, home goods, and more. Updated daily with verified discounts."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>
+        The best deals,
+        <span class="highlight">curated daily.</span>
+      </h1>
+      <p class="hero-subtitle">
+        We track prices across the web to bring you verified discounts on
+        tech, gadgets, home goods, and more. No spam, just savings.
+      </p>
+      <div class="hero-actions">
+        <a href="/deals/" class="btn btn-primary">Browse Deals</a>
+        <a href="/about/" class="btn btn-secondary">How It Works</a>
+      </div>
+    </div>
+  </section>
+
+	<!-- Latest Deals (placeholder — will wire up once collection exists) -->
+  <section class="latest">
+    <div class="container">
+      <h2>Latest Deals</h2>
+      <p>Coming soon. Our deal-bot is hard at work finding the best discounts.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+	  padding: 5rem 0 3rem;
+	  text-align: center;
+  }
+
+  .hero h1 {
+	  font-size: clamp(2rem, 5vw, 3.25rem);
+	  max-width: 12ch;
+	  margin-inline: auto;
+	  margin-bottom: 1.25rem;
+	  letter-spacing: -0.02em;
+  }
+
+  .highlight {
+	  color: var(--accent);
+  }
+
+  .hero-subtitle {
+	  max-width: 52ch;
+	  margin-inline: auto;
+	  margin-bottom: 2rem;
+	  font-size: 1.125rem;
+	  line-height: 1.7;
+	  color: var(--text-secondary);
+  }
+
+  .hero-actions {
+	  display: flex;
+	  gap: 0.75rem;
+	  justify-content: center;
+	  flex-wrap: wrap;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+	  display: inline-flex;
+	  align-items: center;
+	  padding: 0.65rem 1.5rem;
+	  border-radius: var(--radius);
+	  font-weight: 600;
+	  font-size: 0.95rem;
+	  transition: background-color 0.15s, color 0.15s, box-shadow 0.15s;
+	  cursor: pointer;
+  }
+
+  .btn-primary {
+	  background-color: var(--accent);
+	  color: #fff;
+  }
+
+  .btn-primary:hover {
+	  background-color: var(--accent-hover);
+	  color: #fff;
+	  box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
+  }
+
+  .btn-secondary {
+	  background-color: var(--bg-card);
+	  color: var(--text-primary);
+	  border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+	  background-color: var(--bg-card-hover);
+	  color: var(--text-primary);
+  }
+
+  /* ── Latest Deals Section ── */
+  .latest {
+	  padding: 3rem 0 4rem;
+  }
+
+  .latest h2 {
+	  margin-bottom: 0.5rem;
+  }
+
+  .latest p {
+	  color: var(--text-muted);
+  }
+</style>
