@@ -1,0 +1,63 @@
+---
+// src/pages/terms.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+        title="Terms of Service"
+        description="Terms of Service for iPostDeals — conditions for using this website."
+>
+  <section class="page">
+    <div class="container-narrow">
+      <h1>Terms of Service</h1>
+      <p class="date">Last updated: {new Date().toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+      })}</p>
+
+      <h2>Acceptance of Terms</h2>
+      <p>
+        By accessing iPostDeals, you agree to these terms. If you do not
+        agree, please do not use this site.
+      </p>
+
+      <h2>Content</h2>
+      <p>
+        We strive to keep deal information accurate, but prices and
+        availability change rapidly. We are not responsible for price changes
+        or stock issues at third-party retailers.
+      </p>
+
+      <h2>Affiliate Links</h2>
+      <p>
+        iPostDeals participates in affiliate marketing programs. Links on this
+        site may earn us a commission on qualifying purchases at no additional
+        cost to you.
+      </p>
+
+      <h2>Limitation of Liability</h2>
+      <p>
+        iPostDeals is provided "as is" without warranties. We are not liable
+        for any damages arising from your use of this site or purchases made
+        through linked retailers.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        We may update these terms at any time. Continued use of the site after
+        changes constitutes acceptance.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions? <a href="mailto:daniel@ipostdeals.com">daniel@ipostdeals.com</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page { padding: 3rem 0 4rem; }
+  h1 { margin-bottom: 0.25rem; }
+  .date { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  h2 { margin-top: 2rem; margin-bottom: 0.75rem; color: var(--accent); }
+</style>

@@ -15,7 +15,9 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "astro": "^7.1.6"
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.1.6",
+    "astro-robots-txt": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
