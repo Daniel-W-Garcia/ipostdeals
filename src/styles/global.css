@@ -41,8 +41,9 @@
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
     /* Layout */
-    --content-width: 1100px;
-    --content-narrow: 720px;
+    /*TODO: Make this responsive*/
+    --content-width: 2100px;
+    --content-narrow: 1440px;
     --radius: 8px;
     --radius-lg: 12px;
 }
