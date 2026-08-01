@@ -1,0 +1,78 @@
+---
+// src/pages/contact.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+        title="Contact"
+        description="Get in touch with iPostDeals. Questions, suggestions, or partnership inquiries."
+>
+  <section class="page">
+    <div class="container-narrow">
+      <h1>Contact</h1>
+      <p>
+        Have a question, suggestion, or want to partner with us? We'd love to
+        hear from you.
+      </p>
+
+      <div class="contact-methods">
+        <div class="method">
+          <span class="icon">✉️</span>
+          <div>
+            <h3>Email</h3>
+            <a href="mailto:daniel@ipostdeals.com">daniel@ipostdeals.com</a>
+          </div>
+        </div>
+
+        <div class="method">
+          <span class="icon">🐦</span>
+          <div>
+            <h3>Twitter / X</h3>
+            <a href="https://x.com/ipostdeals" target="_blank" rel="noopener">
+              @ipostdeals
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page {
+      padding: 3rem 0 4rem;
+  }
+
+  h1 {
+      margin-bottom: 1rem;
+  }
+
+  .contact-methods {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+  }
+
+  .method {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+  }
+
+  .icon {
+      font-size: 1.5rem;
+  }
+
+  .method h3 {
+      margin: 0 0 0.25rem;
+  }
+
+  .method a {
+      font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+// src/pages/404.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+        title="Page Not Found"
+        description="The page you're looking for doesn't exist."
+>
+  <section class="page">
+    <div class="container">
+      <h1>404</h1>
+      <p>This deal has expired — or never existed.</p>
+      <a href="/" class="btn btn-primary">Back to Deals</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page {
+      padding: 5rem 0;
+      text-align: center;
+  }
+
+  h1 {
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      margin-bottom: 0.5rem;
+  }
+
+  p {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+  }
+
+  .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.15s, color 0.15s;
+  }
+
+  .btn-primary {
+      background-color: var(--accent);
+      color: #fff;
+  }
+
+  .btn-primary:hover {
+      background-color: var(--accent-hover);
+      color: #fff;
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+// src/pages/deals/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DealGrid from '../../components/DealGrid.astro';
+
+const allDeals = await getCollection('deals');
+const sortedDeals = allDeals.sort(
+    (a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0)
+);
+---
+
+<BaseLayout
+        title="All Deals"
+        description="Browse all current deals curated by iPostDeals. Tech, gadgets, home goods, and more — updated daily."
+>
+  <section class="page">
+    <div class="container">
+      <h1>All Deals</h1>
+      <p class="subtitle">
+        {sortedDeals.length} deal{sortedDeals.length !== 1 ? 's' : ''} available
+      </p>
+
+      <DealGrid
+              deals={sortedDeals}
+              emptyMessage="No deals right now. Check back soon — our deal-bot is always hunting."
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page {
+      padding: 3rem 0 4rem;
+  }
+
+  h1 {
+      margin-bottom: 0.25rem;
+  }
+
+  .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+  }
+</style>

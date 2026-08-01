@@ -1,0 +1,53 @@
+---
+// src/pages/about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+        title="About iPostDeals"
+        description="iPostDeals is a deal discovery site that finds and shares the best online discounts across tech, gadgets, and more."
+>
+  <section class="page">
+    <div class="container-narrow">
+      <h1>About iPostDeals</h1>
+
+      <h2>What We Do</h2>
+      <p>
+        iPostDeals tracks prices and finds the best online deals so you don't
+        have to. We search across major retailers to bring you verified
+        discounts on tech, gadgets, home goods, and more.
+      </p>
+
+      <h2>How It Works</h2>
+      <p>
+        Our automated deal-bot scans APIs and RSS feeds from retailers to
+        identify genuine price drops. Every deal we post is verified — we only
+        share discounts worth your time.
+      </p>
+
+      <h2>Affiliate Disclosure</h2>
+      <p>
+        Some links on iPostDeals are affiliate links. If you click and make a
+        purchase, we may earn a small commission at no extra cost to you. This
+        helps keep the site running. We only post deals we genuinely believe
+        are good value.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page {
+      padding: 3rem 0 4rem;
+  }
+
+  h1 {
+      margin-bottom: 2rem;
+  }
+
+  h2 {
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+  }
+</style>
