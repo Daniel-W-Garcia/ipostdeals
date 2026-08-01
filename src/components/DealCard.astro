@@ -1,0 +1,179 @@
+---
+// src/components/DealCard.astro
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+    deal: CollectionEntry<'deals'>;
+}
+
+const { deal } = Astro.props;
+const { title, store, price, originalPrice, category, tags, featured, coupon } = deal.data;
+
+const discount = Math.round((1 - price / originalPrice) * 100);
+const formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+}).format(price);
+const formattedOriginal = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+}).format(originalPrice);
+---
+
+<a href={`/deals/${deal.id}/`} class="card">
+  {featured && <span class="badge badge-featured">Featured</span>}
+
+    <div class="card-meta">
+    <span class="category">{category}</span>
+    <span class="store">{store}</span>
+  </div>
+
+  <h3 class="card-title">{title}</h3>
+
+  <div class="price-row">
+    <span class="price">{formattedPrice}</span>
+    <span class="original">{formattedOriginal}</span>
+    <span class="discount">-{discount}%</span>
+  </div>
+
+    {coupon && (
+            <div class="coupon">
+      <span class="coupon-label">Code: </span>
+      <code>{coupon}</code>
+    </div>
+    )}
+
+    <div class="tags">
+    {tags.map((tag: string) => (
+            <span class="tag">{tag}</span>
+    ))}
+  </div>
+</a>
+
+<style>
+  .card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.25rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: border-color 0.15s, background-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+      color: inherit;
+  }
+
+  .card:hover {
+      border-color: var(--accent);
+      background-color: var(--bg-card-hover);
+      transform: translateY(-2px);
+      color: inherit;
+  }
+
+  .badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.75rem;
+      border-radius: 0 0 0 var(--radius);
+  }
+
+  .badge-featured {
+      background-color: var(--accent);
+      color: #fff;
+  }
+
+  .card-meta {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.8rem;
+  }
+
+  .category {
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: capitalize;
+  }
+
+  .store {
+      color: var(--text-muted);
+  }
+
+  .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+  }
+
+  .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+  }
+
+  .price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--success);
+  }
+
+  .original {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+  }
+
+  .discount {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      background-color: var(--sale);
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+  }
+
+  .coupon {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+  }
+
+  .coupon code {
+      background-color: var(--bg-secondary);
+      color: var(--warning);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+  }
+
+  .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+  }
+
+  .tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 10px;
+      background-color: rgba(59, 130, 246, 0.1);
+      color: var(--accent-hover);
+      font-weight: 500;
+  }
+</style>

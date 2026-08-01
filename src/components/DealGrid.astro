@@ -1,0 +1,34 @@
+---
+// src/components/DealGrid.astro
+import type { CollectionEntry } from 'astro:content';
+import DealCard from './DealCard.astro';
+
+export interface Props {
+    deals: CollectionEntry<'deals'>[];
+    emptyMessage?: string;
+}
+
+const { deals, emptyMessage = 'No deals found.' } = Astro.props;
+---
+
+{deals.length === 0 ? (
+  <p class="empty">{emptyMessage}</p>
+    ) : (
+  <div class="grid">
+    {deals.map((deal) => <DealCard deal={deal} />)}
+  </div>
+    )}
+
+<style>
+  .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+  }
+
+  .empty {
+      color: var(--text-muted);
+      text-align: center;
+      padding: 3rem 0;
+  }
+</style>
