@@ -1,29 +1,35 @@
 ---
-// src/pages/deals/index.astro
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import DealGrid from '../../components/DealGrid.astro';
 
-const allDeals = await getCollection('deals');
-const sortedDeals = allDeals.sort(
-    (a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0)
-);
+import DealGrid from '../../components/DealGrid.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const activeDeals = (await getCollection('deals'))
+    .filter((deal) => deal.data.status === 'active')
+    .sort(
+        (left, right) =>
+            right.data.publishedAt.getTime() -
+            left.data.publishedAt.getTime(),
+    );
 ---
 
 <BaseLayout
-        title="All Deals"
-        description="Browse all current deals curated by iPostDeals. Tech, gadgets, home goods, and more — updated daily."
+    title="Current Deals"
+    description="Browse active, source-attributed deals from iPostDeals."
 >
   <section class="page">
     <div class="container">
-      <h1>All Deals</h1>
-      <p class="subtitle">
-        {sortedDeals.length} deal{sortedDeals.length !== 1 ? 's' : ''} available
-      </p>
+      <header class="page-header">
+        <h1>Current Deals</h1>
+        <p>
+          Prices and availability can change. Click any card to view the
+          source deal.
+        </p>
+      </header>
 
       <DealGrid
-              deals={sortedDeals}
-              emptyMessage="No deals right now. Check back soon — our deal-bot is always hunting."
+          deals={activeDeals}
+          emptyMessage="No active deals have been published yet. Check back soon."
       />
     </div>
   </section>
@@ -31,15 +37,19 @@ const sortedDeals = allDeals.sort(
 
 <style>
   .page {
-      padding: 3rem 0 4rem;
+    padding: 3rem 0 4rem;
   }
 
-  h1 {
-      margin-bottom: 0.25rem;
+  .page-header {
+    max-width: 60ch;
+    margin-bottom: 2rem;
   }
 
-  .subtitle {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
+  .page-header h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header p {
+    margin: 0;
   }
 </style>

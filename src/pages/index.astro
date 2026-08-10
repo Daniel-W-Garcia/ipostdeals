@@ -1,58 +1,72 @@
 ---
-// src/pages/index.astro
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import DealGrid from '../components/DealGrid.astro';
 
-const allDeals = await getCollection('deals');
-const featuredDeals = allDeals.filter((d) => d.data.featured).slice(0, 6);
+import DealGrid from '../components/DealGrid.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const activeDeals = (await getCollection('deals'))
+    .filter((deal) => deal.data.status === 'active')
+    .sort(
+        (left, right) =>
+            right.data.publishedAt.getTime() -
+            left.data.publishedAt.getTime(),
+    );
+
+const featuredDeals = activeDeals
+    .filter((deal) => deal.data.featured)
+    .slice(0, 6);
+
+const latestDeals = activeDeals
+    .filter((deal) => !deal.data.featured)
+    .slice(0, 6);
 ---
 
 <BaseLayout
-    title="Find the Best Deals — Curated Daily"
-    description="iPostDeals finds and shares the best online deals across tech, gadgets, home goods, and more. Updated daily with verified discounts."
+    title="Current Deals Worth Checking"
+    description="Source-attributed deals with current observed prices. Click a deal card to view the source offer."
 >
-  <!-- Hero -->
   <section class="hero">
     <div class="container">
       <h1>
-        The best deals,
-        <span class="highlight">curated daily.</span>
+        Deals worth checking,
+        <span class="highlight">without the clutter.</span>
       </h1>
+
       <p class="hero-subtitle">
-        We track prices across the web to bring you verified discounts on
-        tech, gadgets, home goods, and more. No spam, just savings.
+        iPostDeals tracks source-attributed product deals and sends you
+        directly to the offer. Prices and availability can change quickly.
       </p>
+
       <div class="hero-actions">
-        <a href="/deals/" class="btn btn-primary">Browse All Deals</a>
+        <a href="/deals/" class="btn btn-primary">Browse Deals</a>
         <a href="/about/" class="btn btn-secondary">How It Works</a>
       </div>
     </div>
   </section>
 
-  <!-- Featured Deals -->
   {featuredDeals.length > 0 && (
       <section class="section">
       <div class="container">
         <div class="section-header">
-          <h2>🔥 Featured Deals</h2>
-          <a href="/deals/" class="view-all">View all &rarr;</a>
+          <h2>Featured Deals</h2>
+          <a href="/deals/" class="view-all">View all →</a>
         </div>
-        <DealGrid deals={featuredDeals} emptyMessage="No featured deals yet. Check back soon!" />
+
+        <DealGrid deals={featuredDeals} />
       </div>
     </section>
   )}
 
-  <!-- Latest Deals -->
   <section class="section">
     <div class="container">
       <div class="section-header">
         <h2>Latest Deals</h2>
-        <a href="/deals/" class="view-all">View all &rarr;</a>
+        <a href="/deals/" class="view-all">View all →</a>
       </div>
+
       <DealGrid
-          deals={allDeals.filter((d) => !d.data.featured).slice(0, 6)}
-          emptyMessage="More deals coming soon. Our deal-bot is hard at work!"
+          deals={latestDeals}
+          emptyMessage="No active deals have been published yet. Check back soon."
       />
     </div>
   </section>
@@ -65,10 +79,10 @@ const featuredDeals = allDeals.filter((d) => d.data.featured).slice(0, 6);
   }
 
   .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.25rem);
-    max-width: 12ch;
+    max-width: 14ch;
     margin-inline: auto;
     margin-bottom: 1.25rem;
+    font-size: clamp(2rem, 5vw, 3.25rem);
     letter-spacing: -0.02em;
   }
 
@@ -77,19 +91,19 @@ const featuredDeals = allDeals.filter((d) => d.data.featured).slice(0, 6);
   }
 
   .hero-subtitle {
-    max-width: 52ch;
+    max-width: 58ch;
     margin-inline: auto;
     margin-bottom: 2rem;
+    color: var(--text-secondary);
     font-size: 1.125rem;
     line-height: 1.7;
-    color: var(--text-secondary);
   }
 
   .hero-actions {
     display: flex;
-    gap: 0.75rem;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
   }
 
   .btn {
@@ -97,32 +111,34 @@ const featuredDeals = allDeals.filter((d) => d.data.featured).slice(0, 6);
     align-items: center;
     padding: 0.65rem 1.5rem;
     border-radius: var(--radius);
-    font-weight: 600;
     font-size: 0.95rem;
-    transition: background-color 0.15s, color 0.15s, box-shadow 0.15s;
-    cursor: pointer;
+    font-weight: 600;
+    transition:
+        background-color 0.15s,
+        color 0.15s,
+        box-shadow 0.15s;
   }
 
   .btn-primary {
-    background-color: var(--accent);
     color: #fff;
+    background-color: var(--accent);
   }
 
   .btn-primary:hover {
-    background-color: var(--accent-hover);
     color: #fff;
+    background-color: var(--accent-hover);
     box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
   }
 
   .btn-secondary {
-    background-color: var(--bg-card);
     color: var(--text-primary);
+    background-color: var(--bg-card);
     border: 1px solid var(--border);
   }
 
   .btn-secondary:hover {
-    background-color: var(--bg-card-hover);
     color: var(--text-primary);
+    background-color: var(--bg-card-hover);
   }
 
   .section {
@@ -133,6 +149,7 @@ const featuredDeals = allDeals.filter((d) => d.data.featured).slice(0, 6);
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    gap: 1rem;
     margin-bottom: 1.5rem;
   }
 
@@ -141,7 +158,8 @@ const featuredDeals = allDeals.filter((d) => d.data.featured).slice(0, 6);
   }
 
   .view-all {
+    flex: 0 0 auto;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
   }
 </style>
