@@ -1,16 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-
 import DealGrid from '../components/DealGrid.astro';
+import { getActiveDeals } from '../lib/deals';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const activeDeals = (await getCollection('deals'))
-    .filter((deal) => deal.data.status === 'active')
-    .sort(
-        (left, right) =>
-            right.data.publishedAt.getTime() -
-            left.data.publishedAt.getTime(),
-    );
+const activeDeals = await getActiveDeals();
 
 const featuredDeals = activeDeals
     .filter((deal) => deal.data.featured)
