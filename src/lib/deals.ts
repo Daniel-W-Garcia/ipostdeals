@@ -3,33 +3,27 @@ import {
     type CollectionEntry,
 } from 'astro:content';
 
+const dealModules = import.meta.glob(
+    '../content/deals/**/*.{md,mdx}',
+    {
+        eager: true,
+    },
+);
+
 export async function getActiveDeals(): Promise<
     CollectionEntry<'deals'>[]
 > {
-    try {
-        const deals = await getCollection('deals');
-
-        return deals
-            .filter((deal) => deal.data.status === 'active')
-            .sort(
-                (left, right) =>
-                    right.data.publishedAt.getTime() -
-                    left.data.publishedAt.getTime(),
-            );
-    } catch (error) {
-        if (isEmptyDealsCollectionError(error)) {
-            return [];
-        }
-
-        throw error;
+    if (Object.keys(dealModules).length === 0) {
+        return [];
     }
-}
 
-function isEmptyDealsCollectionError(error: unknown): boolean {
-    return (
-        error instanceof Error &&
-        error.message.includes(
-            'The collection "deals" does not exist or is empty.',
-        )
-    );
+    const deals = await getCollection('deals');
+
+    return deals
+        .filter((deal) => deal.data.status === 'active')
+        .sort(
+            (left, right) =>
+                right.data.publishedAt.getTime() -
+                left.data.publishedAt.getTime(),
+        );
 }
