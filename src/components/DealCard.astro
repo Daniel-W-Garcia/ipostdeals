@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getCategoryLabel } from '../lib/categories';
+
 
 export interface Props {
     deal: CollectionEntry<'deals'>;
@@ -13,16 +15,21 @@ const {
     comparisonPrice,
     comparisonPriceLabel,
     coupon,
+    displayTitle,
     featured,
     lastCheckedAt,
     price,
+    priceHistorySource,
+    priceHistoryUrl,
     retailerUrl,
     sourceName,
     sourceUrl,
     store,
-    tags,
     title,
 } = deal.data;
+
+const cardTitle = displayTitle ?? title;
+
 
 const outboundUrl = affiliateUrl ?? retailerUrl ?? sourceUrl;
 const linkLabel =
@@ -53,92 +60,108 @@ if (
 const externalRel = affiliateUrl ? 'sponsored' : undefined;
 ---
 
-<a
-        href={outboundUrl}
-        class="card"
-        rel={externalRel}
-        aria-label={`${linkLabel}: ${title}`}
->
-  {featured && <span class="badge badge-featured">Featured</span>}
+<article class="card">
+  <a
+          href={outboundUrl}
+          class="card-main"
+          rel={externalRel}
+          aria-label={`${linkLabel}: ${title}`}
+  >
+    {featured && <span class="badge badge-featured">Featured</span>}
 
-    <div class="card-meta">
-    <span class="category">{category}</span>
-    <span class="store">{store}</span>
-  </div>
+      <div class="card-meta">
+      <span class="category">{getCategoryLabel(category)}</span>
+      <span class="store">{store}</span>
+    </div>
 
-  <h2 class="card-title">{title}</h2>
+    <h2 class="card-title">{cardTitle}</h2>
 
-  <div class="price-row">
-    <span class="price">{currencyFormatter.format(price)}</span>
+    <div class="price-row">
+      <span class="price">{currencyFormatter.format(price)}</span>
 
-      {formattedComparison && (
-              <>
-        <span class="original">{formattedComparison}</span>
+        {formattedComparison && (
+                <>
+          <span class="original">{formattedComparison}</span>
 
-                  {discount !== null && (
-                          <span class="discount">-{discount}%</span>
-                  )}
-      </>
+                    {discount !== null && (
+                            <span class="discount">-{discount}%</span>
+                    )}
+        </>
+        )}
+    </div>
+
+      {comparisonPriceLabel && (
+              <p class="comparison-label">{comparisonPriceLabel}</p>
       )}
-  </div>
 
-    {comparisonPriceLabel && (
-            <p class="comparison-label">{comparisonPriceLabel}</p>
-    )}
+      {coupon && (
+              <div class="coupon">
+        <span class="coupon-label">Code: </span>
+        <code>{coupon}</code>
+      </div>
+      )}
 
-    {coupon && (
-            <div class="coupon">
-      <span class="coupon-label">Code: </span>
-      <code>{coupon}</code>
-    </div>
-    )}
-
-    <p class="source">
-    Source: {sourceName} · Checked {dateFormatter.format(lastCheckedAt)}
-  </p>
-
-    {tags.length > 0 && (
-            <div class="tags">
-      {tags.map((tag) => <span class="tag">{tag}</span>)}
-    </div>
-    )}
+      <p class="source">
+      Source: {sourceName} · Checked {dateFormatter.format(lastCheckedAt)}
+    </p>
 
     <span class="card-action">
-    {linkLabel} <span aria-hidden="true">↗</span>
-  </span>
-</a>
+      {linkLabel} <span aria-hidden="true">↗</span>
+    </span>
+  </a>
+
+    {priceHistoryUrl && (
+            <a
+                    href={priceHistoryUrl}
+                    class="price-history"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View price history on ${
+                        priceHistorySource ?? 'PCPartPicker'
+                    }`}
+            >
+      <span>Price history</span>
+      <span class="price-history-link">
+        View on {priceHistorySource ?? 'PCPartPicker'}
+          <span aria-hidden="true">↗</span>
+      </span>
+    </a>
+    )}
+</article>
+
+
 
 <style>
-  .card {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      min-height: 100%;
-      padding: 1.25rem;
-      position: relative;
-      overflow: hidden;
-      color: inherit;
-      background-color: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      transition:
-              border-color 0.15s,
-              background-color 0.15s,
-              transform 0.15s;
-  }
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition:
+            border-color 0.15s,
+            background-color 0.15s,
+            transform 0.15s;
+}
 
-  .card:hover,
-  .card:focus-visible {
-      color: inherit;
-      background-color: var(--bg-card-hover);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-  }
+.card:hover {
+    background-color: var(--bg-card-hover);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
 
-  .card:focus-visible {
-      outline: 3px solid var(--accent-hover);
-      outline-offset: 3px;
-  }
+
+.card-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 0;
+    padding: 1.25rem;
+    color: inherit;
+}
 
   .badge {
       position: absolute;
@@ -167,7 +190,6 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
   .category {
       color: var(--accent);
       font-weight: 600;
-      text-transform: capitalize;
   }
 
   .store {
@@ -183,7 +205,67 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
       font-weight: 600;
       line-height: 1.4;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
+  }
+
+    .card-main:hover {
+        color: inherit;
+    }
+
+    .card-main:focus-visible {
+        outline: 3px solid var(--accent-hover);
+        outline-offset: -3px;
+    }
+
+    .price-history {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.65rem 1.25rem 0.75rem;
+        color: var(--text-muted);
+        background-color: var(--bg-card);
+        border-top: 1px solid var(--border);
+        font-size: 0.8rem;
+        line-height: 1.45;
+    }
+
+    .price-history:hover {
+        color: var(--text-primary);
+        background-color: var(--bg-card-hover);
+    }
+
+    .price-history:focus-visible {
+        z-index: 1;
+        outline: 3px solid var(--accent-hover);
+        outline-offset: -3px;
+    }
+
+    .price-history-link {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+    .price-history:hover .price-history-link {
+        text-decoration: underline;
+    }
+
+
+
+  .price-history a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+  }
+
+  .price-history a:hover,
+  .price-history a:focus-visible {
+      text-decoration: underline;
+  }
+
+  .price-history a:focus-visible {
+      outline: 3px solid var(--accent-hover);
+      outline-offset: 2px;
   }
 
   .price-row {
@@ -236,27 +318,12 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
       font-size: 0.8rem;
   }
 
-  .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: auto;
-      padding-top: 0.5rem;
-  }
+    .card-action {
+        margin-top: auto;
+        padding-top: 0.5rem;
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
 
-  .tag {
-      padding: 0.15rem 0.55rem;
-      color: var(--accent-hover);
-      background-color: var(--accent-muted);
-      border-radius: 10px;
-      font-size: 0.7rem;
-      font-weight: 500;
-  }
-
-  .card-action {
-      margin-top: 0.5rem;
-      color: var(--accent);
-      font-size: 0.9rem;
-      font-weight: 700;
-  }
 </style>

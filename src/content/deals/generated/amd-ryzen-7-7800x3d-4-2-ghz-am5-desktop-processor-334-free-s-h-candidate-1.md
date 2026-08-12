@@ -1,11 +1,14 @@
 ---
 title: "AMD Ryzen 7 7800X3D 4.2 GHz AM5 Desktop Processor $334 + Free S&H"
+displayTitle: "AMD Ryzen 7 7800X3D 4.2 GHz"
 store: "Slickdeals"
 price: 334.00
 currency: "USD"
 
 sourceName: "Slickdeals"
 sourceUrl: "https://slickdeals.net/f/19848939-333-99-amd-ryzen-7-7800x3d-8-core-16-thread-desktop-processor-at-amazon?utm_source=rss&utm_content=fp&utm_medium=RSS2"
+priceHistoryUrl: "https://pcpartpicker.com/product/3hyH99"
+priceHistorySource: "PCPartPicker"
 
 category: "cpu"
 tags: ["cpu"]

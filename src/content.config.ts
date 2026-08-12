@@ -11,12 +11,15 @@ const deals = defineCollection({
         z
             .object({
                 title: z.string().min(1),
+                displayTitle: z.string().min(1).optional(),
                 store: z.string().min(1),
                 price: z.number().positive(),
                 currency: z.literal('USD').default('USD'),
 
                 sourceName: z.string().min(1),
                 sourceUrl: z.string().url(),
+                priceHistoryUrl: z.string().url().optional(),
+                priceHistorySource: z.string().min(1).optional(),
                 retailerUrl: z.string().url().optional(),
                 affiliateUrl: z.string().url().optional(),
 

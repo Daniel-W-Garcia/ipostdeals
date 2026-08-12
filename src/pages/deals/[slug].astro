@@ -1,0 +1,111 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+    const deals = await getCollection('deals');
+
+  return deals.flatMap((deal) => {
+    const slug = deal.id.split('/').pop();
+
+    if (!slug) {
+      return [];
+    }
+
+    return [
+      {
+        params: {
+          slug,
+        },
+        props: {
+          deal,
+        },
+      },
+    ];
+  });
+
+}
+
+const { deal } = Astro.props;
+const { Content } = await render(deal);
+
+const {
+    affiliateUrl,
+    lastCheckedAt,
+    price,
+    retailerUrl,
+    sourceName,
+    sourceUrl,
+    store,
+    title,
+    currency,
+} = deal.data;
+
+const outboundUrl = affiliateUrl ?? retailerUrl ?? sourceUrl;
+const outboundLabel =
+    affiliateUrl || retailerUrl ? 'View Deal' : 'View Source Listing';
+
+const formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+}).format(price);
+
+const formattedLastChecked = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+}).format(lastCheckedAt);
+
+const outboundRel = affiliateUrl
+    ? 'sponsored noopener noreferrer'
+    : 'noopener noreferrer';
+---
+
+<BaseLayout
+        title={title}
+        description={`${title} at ${formattedPrice} from ${store}.`}
+>
+  <main class="deal-detail">
+    <article>
+      <header>
+        <p>{store}</p>
+        <h1>{title}</h1>
+      </header>
+
+      <section aria-labelledby="deal-price">
+        <h2 id="deal-price">Current price</h2>
+        <p>{formattedPrice}</p>
+        <p>Last checked: {formattedLastChecked}</p>
+      </section>
+
+      <p>
+        Source:
+        <a
+                href={sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+        >
+          {sourceName}
+        </a>
+      </p>
+
+      <p>
+        iPostDeals may earn a commission when you buy through links on this
+        site, at no additional cost to you.
+      </p>
+
+      <p>
+        <a
+                href={outboundUrl}
+                target="_blank"
+                rel={outboundRel}
+        >
+          {outboundLabel}
+        </a>
+      </p>
+
+      <div class="deal-description">
+        <Content />
+      </div>
+    </article>
+  </main>
+</BaseLayout>

@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/daniel/Projects/deal-bot",
+        "/home/daniel/Projects/websites/ipostdeals"
+      ]
+    },
+    "microsoft-docs": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    },
+    "sec-edgar-mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "SEC_EDGAR_USER_AGENT=Daniel Garcia (itodobien@gmail.com)",
+        "-e",
+        "SEC_EDGAR_CACHE_DIR=/cache",
+        "-e",
+        "SEC_EDGAR_RATE_LIMIT=8",
+        "-v",
+        "/home/daniel/.cache/sec-edgar:/cache",
+        "stefanoamorelli/sec-edgar-mcp:latest"
+      ],
+      "type": "stdio"
+    },
+    "fred": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "FRED_API_KEY",
+        "stefanoamorelli/fred-mcp-server:latest"
+      ],
+      "env": {
+        "FRED_API_KEY": "2dc58e76030ccb7b31e3dec42006ee6c"
+      },
+      "type": "stdio"
+    },
+    "Astro docs": {
+      "type": "http",
+      "url": "https://mcp.docs.astro.build/mcp"
+    }
+  }
+}
