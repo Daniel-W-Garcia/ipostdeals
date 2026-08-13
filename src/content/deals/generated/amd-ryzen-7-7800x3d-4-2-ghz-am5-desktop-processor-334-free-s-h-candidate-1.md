@@ -15,7 +15,7 @@ tags: ["cpu"]
 
 firstSeenAt: "2026-08-10T20:57:51.439594Z"
 lastCheckedAt: "2026-08-10T20:57:51.438057Z"
-publishedAt: "2026-08-12T16:52:23.544611Z"
+publishedAt: "2026-08-12T16:52:25.438789Z"
 
 sourceCandidateId: 1
 featured: false
