@@ -1,5 +1,6 @@
 ---
 import DealGrid from '../../components/DealGrid.astro';
+import NasMarketStreamer from '../../components/NasMarketStreamer.astro';
 import { getActiveDeals } from '../../lib/deals';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
@@ -11,6 +12,8 @@ const activeDeals = await getActiveDeals();
     title="Current Deals"
     description="Browse active, source-attributed deals from iPostDeals."
 >
+  <NasMarketStreamer />
+
   <section class="page">
     <div class="container">
       <header class="page-header">

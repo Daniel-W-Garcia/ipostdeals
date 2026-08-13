@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iPostDeals NASdisks Banner Options</title>
+  <style>
+    :root {
+      --bg: #080d17;
+      --surface: #111a2b;
+      --surface-2: #162239;
+      --border: #293953;
+      --text: #f4f7fb;
+      --muted: #9eacc1;
+      --blue: #65a7ff;
+      --green: #43d18b;
+      --gold: #ffd166;
+      --page: #eef2f7;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px;
+      color: var(--text);
+      background: linear-gradient(135deg, #0a1220, #17243a);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .page { max-width: 1180px; margin: 0 auto; }
+    .intro { margin-bottom: 28px; }
+    .intro h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 4vw, 2.5rem); }
+    .intro p { margin: 0; color: var(--muted); max-width: 72ch; line-height: 1.6; }
+    .option { margin: 24px 0 34px; }
+    .option h2 { margin: 0 0 8px; font-size: 1.05rem; }
+    .option > p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
+    .site-frame { overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: var(--bg); box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+    .site-nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid #1d2940; }
+    .brand { font-weight: 800; letter-spacing: -.02em; }
+    .nav-links { display: flex; gap: 18px; color: var(--muted); font-size: .85rem; }
+    .hero { padding: 30px 22px 22px; }
+    .hero-kicker { color: var(--blue); text-transform: uppercase; letter-spacing: .12em; font-size: .7rem; font-weight: 800; }
+    .hero h3 { margin: 8px 0; font-size: clamp(1.45rem, 3vw, 2.15rem); }
+    .hero-copy { margin: 0; color: var(--muted); max-width: 52ch; line-height: 1.55; }
+    .content-placeholder { height: 110px; margin: 0 22px 22px; border: 1px dashed #34435c; border-radius: 12px; color: #667690; display: grid; place-items: center; font-size: .85rem; }
+
+    /* Option A */
+    .ticker-a { display: flex; align-items: center; gap: 14px; padding: 10px 22px; background: #15233a; border-top: 1px solid #29476e; border-bottom: 1px solid #29476e; }
+    .ticker-a .label { color: var(--gold); font-size: .68rem; font-weight: 900; letter-spacing: .08em; white-space: nowrap; }
+    .ticker-a .prices { display: flex; flex-wrap: wrap; gap: 15px; flex: 1; }
+    .ticker-a .price { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+    .ticker-a strong { color: var(--green); font-size: .9rem; }
+    .ticker-a a { color: var(--blue); font-size: .75rem; white-space: nowrap; }
+
+    /* Option B */
+    .market-b { padding: 16px 22px; background: linear-gradient(90deg, #101e32, #132a37); border-top: 1px solid #29536a; border-bottom: 1px solid #29536a; }
+    .market-b-top { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin-bottom: 12px; }
+    .market-b h4 { margin: 0; font-size: .96rem; }
+    .market-b .source { color: var(--muted); font-size: .72rem; }
+    .market-b .source a { color: var(--blue); }
+    .market-b-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .market-cell { padding: 9px 10px; border: 1px solid #294153; border-radius: 9px; background: rgba(5, 13, 24, .3); }
+    .market-cell .capacity { color: var(--muted); font-size: .7rem; }
+    .market-cell .value { margin-top: 2px; color: var(--green); font-size: 1rem; font-weight: 800; }
+    .market-cell .unit { color: #7990ad; font-size: .68rem; }
+
+    /* Option C */
+    .streamer-c { display: flex; align-items: center; gap: 12px; padding: 12px 22px; background: #0e1828; border-top: 1px solid #32496a; border-bottom: 1px solid #32496a; }
+    .streamer-c .live { display: inline-flex; align-items: center; gap: 7px; color: #fff; font-size: .72rem; font-weight: 800; white-space: nowrap; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(67,209,139,.12); }
+    .stream-items { display: flex; gap: 8px; overflow: hidden; flex: 1; }
+    .stream-item { flex: 0 0 auto; padding: 7px 10px; border: 1px solid #2c405f; border-radius: 999px; background: #15233a; color: var(--muted); font-size: .74rem; white-space: nowrap; }
+    .stream-item strong { color: var(--text); }
+    .stream-item em { color: var(--green); font-style: normal; font-weight: 800; }
+    .streamer-c .credit { color: var(--blue); font-size: .72rem; white-space: nowrap; }
+
+    @media (max-width: 720px) {
+      body { padding: 16px; }
+      .nav-links { display: none; }
+      .ticker-a, .streamer-c { align-items: flex-start; flex-direction: column; }
+      .ticker-a .prices { gap: 8px 14px; }
+      .market-b-top { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .market-b-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stream-items { width: 100%; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro">
+      <h1>iPostDeals × NASdisks market banner concepts</h1>
+      <p>These are visual-only concepts for a small site-wide NAS price reference. Each includes a direct NASdisks credit link and leaves room for a separate “View drive” link when the visitor wants the underlying listing.</p>
+    </section>
+
+    <section class="option">
+      <h2>Option A — Slim ticker</h2>
+      <p>Smallest footprint; best when the banner should inform without competing with deals.</p>
+      <div class="site-frame">
+        <div class="site-nav"><div class="brand">iPostDeals</div><div class="nav-links"><span>Deals</span><span>How It Works</span><span>About</span></div></div>
+        <div class="ticker-a">
+          <span class="label">NAS PRICE FLOOR · US</span>
+          <div class="prices">
+            <span class="price">4TB <strong>$180</strong></span>
+            <span class="price">8TB <strong>$259</strong></span>
+            <span class="price">12TB <strong>$349</strong></span>
+            <span class="price">20TB <strong>$600</strong></span>
+          </div>
+          <a href="#">NASdisks source ↗</a>
+        </div>
+        <div class="hero"><div class="hero-kicker">Source-attributed deal discovery</div><h3>Deals worth checking, without the clutter.</h3><p class="hero-copy">A compact market reference helps visitors understand what “good” means before they open a deal.</p></div>
+        <div class="content-placeholder">Featured deal cards</div>
+      </div>
+    </section>
+
+    <section class="option">
+      <h2>Option B — Market strip</h2>
+      <p>More readable and transparent; gives visitors several capacity reference points at once.</p>
+      <div class="site-frame">
+        <div class="site-nav"><div class="brand">iPostDeals</div><div class="nav-links"><span>Deals</span><span>How It Works</span><span>About</span></div></div>
+        <div class="market-b">
+          <div class="market-b-top"><h4>Current NAS price floor · US</h4><div class="source">Prices refreshed by <a href="#">NASdisks.com ↗</a></div></div>
+          <div class="market-b-grid">
+            <div class="market-cell"><div class="capacity">4TB</div><div class="value">$180</div><div class="unit">$45/TB</div></div>
+            <div class="market-cell"><div class="capacity">8TB</div><div class="value">$259</div><div class="unit">$32.38/TB</div></div>
+            <div class="market-cell"><div class="capacity">12TB</div><div class="value">$349</div><div class="unit">$29.08/TB</div></div>
+            <div class="market-cell"><div class="capacity">20TB</div><div class="value">$600</div><div class="unit">$30/TB</div></div>
+            <div class="market-cell"><div class="capacity">24TB</div><div class="value">$860</div><div class="unit">$35.83/TB</div></div>
+          </div>
+        </div>
+        <div class="hero"><div class="hero-kicker">Source-attributed deal discovery</div><h3>Deals worth checking, without the clutter.</h3><p class="hero-copy">The strip gives context without claiming that every drive has the same market price.</p></div>
+        <div class="content-placeholder">Featured deal cards</div>
+      </div>
+    </section>
+
+    <section class="option">
+      <h2>Option C — Streamer</h2>
+      <p>Feels more like a live market feed; good for freshness, but slightly more visual movement and density.</p>
+      <div class="site-frame">
+        <div class="site-nav"><div class="brand">iPostDeals</div><div class="nav-links"><span>Deals</span><span>How It Works</span><span>About</span></div></div>
+        <div class="streamer-c">
+          <div class="live"><span class="live-dot"></span>NAS MARKET · US</div>
+          <div class="stream-items">
+            <div class="stream-item">4TB <strong>$180</strong> <em>↓ $45/TB</em></div>
+            <div class="stream-item">8TB <strong>$259</strong> <em>↓ $32.38/TB</em></div>
+            <div class="stream-item">12TB <strong>$349</strong> <em>↓ $29.08/TB</em></div>
+            <div class="stream-item">20TB <strong>$600</strong> <em>↓ $30/TB</em></div>
+            <div class="stream-item">24TB <strong>$860</strong> <em>↓ $35.83/TB</em></div>
+          </div>
+          <a class="credit" href="https://www.nasdisks.com/data/">Prices refreshed by NASdisks.com ↗</a>
+        </div>
+        <div class="hero"><div class="hero-kicker">Source-attributed deal discovery</div><h3>Deals worth checking, without the clutter.</h3><p class="hero-copy">The streamer communicates that this is a current reference, not a permanent price claim.</p></div>
+        <div class="content-placeholder">Featured deal cards</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,5 +1,6 @@
 ---
 import DealGrid from '../components/DealGrid.astro';
+import NasMarketStreamer from '../components/NasMarketStreamer.astro';
 import { getActiveDeals } from '../lib/deals';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -18,6 +19,8 @@ const latestDeals = activeDeals
     title="Current Deals Worth Checking"
     description="Source-attributed deals with current observed prices. Click a deal card to view the source offer."
 >
+  <NasMarketStreamer />
+
   <section class="hero">
     <div class="container">
       <h1>
