@@ -32,3 +32,7 @@ pnpm-debug.log*
 # specific files
 AGENTS.md
 CLAUDE.md
+/docs/superpowers/specs/2026-08-13-nasdisks-market-streamer-design.md
+/docs/superpowers/plans/2026-08-13-nasdisks-market-streamer-plan.md
+/astro
+/ipostdeals@0.0.1

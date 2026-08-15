@@ -1,6 +1,11 @@
 ---
 // src/pages/privacy.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Bump this by hand only when the policy text below actually changes.
+// Do NOT use new Date() here: that renders the build date, so every routine
+// rebuild would tell visitors the policy had just changed.
+const LAST_UPDATED = 'August 14, 2026';
 ---
 
 <BaseLayout
@@ -10,9 +15,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="page">
     <div class="container-narrow">
       <h1>Privacy Policy</h1>
-      <p class="date">Last updated: {new Date().toLocaleDateString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric'
-      })}</p>
+      <p class="date">Last updated: {LAST_UPDATED}</p>
 
       <h2>Information We Collect</h2>
       <p>
@@ -23,24 +26,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <h2>Analytics</h2>
       <p>
-        We use Cloudflare Web Analytics, which is privacy-first and does not
-        use cookies or track individual users across sites. It provides basic
-        page view metrics without collecting personal data.
+        We use Cloudflare Web Analytics, which does not use cookies and does
+        not track individual visitors across sites. It provides aggregate page
+        view metrics only. Our hosting provider, Cloudflare, also processes
+        standard server request logs in order to serve this site.
+      </p>
+
+      <h2>Third-Party Requests</h2>
+      <p>
+        Some pages load live hard drive price data directly from NASdisks.com
+        in your browser. When that happens, NASdisks receives your IP address
+        and standard request headers, just as if you had visited their site
+        yourself. We do not send them any other information about you, and
+        their privacy practices are their own.
       </p>
 
       <h2>Affiliate Links</h2>
       <p>
-        Some links on this site are affiliate links. When you click an
-        affiliate link and make a purchase, the retailer may set a cookie to
-        track that the click came from iPostDeals. These cookies are set by
-        the retailer, not by us. Please refer to each retailer's privacy
-        policy for details.
+        We do not currently have any affiliate relationships in place, so no
+        link on this site earns us a commission today. If that changes, any
+        such link will be marked as sponsored, and the retailer may set a
+        cookie recording that the click came from iPostDeals. Those cookies
+        would be set by the retailer, not by us.
       </p>
 
       <h2>Third-Party Links</h2>
       <p>
-        Our site links to third-party retailers. We are not responsible for
-        the privacy practices or content of these external sites.
+        This site links out to retailers, marketplaces, and deal sources. We
+        are not responsible for the privacy practices or content of those
+        external sites.
       </p>
 
       <h2>Contact</h2>

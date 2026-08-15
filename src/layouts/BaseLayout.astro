@@ -44,8 +44,9 @@ const ogImage = image ?? `${siteUrl}/og-default.png`;
     <slot name="head" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <Header />
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />

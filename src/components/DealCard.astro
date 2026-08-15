@@ -57,15 +57,22 @@ if (
     discount = Math.round((1 - price / comparisonPrice) * 100);
 }
 
-const externalRel = affiliateUrl ? 'sponsored' : undefined;
+// Every outbound link is to a third party we do not control.
+//   noopener/noreferrer - the destination cannot reach back via window.opener
+//   sponsored           - required disclosure when a link is monetised
+//   nofollow            - we do not vouch for uncurated commercial listings
+const externalRel = affiliateUrl
+    ? 'sponsored noopener noreferrer'
+    : 'nofollow noopener noreferrer';
 ---
 
 <article class="card">
   <a
           href={outboundUrl}
           class="card-main"
+          target="_blank"
           rel={externalRel}
-          aria-label={`${linkLabel}: ${title}`}
+          aria-label={`${linkLabel}: ${title} (opens in a new tab)`}
   >
     {featured && <span class="badge badge-featured">Featured</span>}
 
@@ -74,7 +81,7 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
       <span class="store">{store}</span>
     </div>
 
-    <h2 class="card-title">{cardTitle}</h2>
+    <h2 class="card-title" title={title}>{cardTitle}</h2>
 
     <div class="price-row">
       <span class="price">{currencyFormatter.format(price)}</span>
@@ -133,6 +140,10 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
 
 <style>
 .card {
+    /* Required by the absolutely positioned .badge below. Without it the
+       Featured badge anchors to the nearest positioned ancestor or the
+       viewport instead of the card. */
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -205,7 +216,10 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
       font-weight: 600;
       line-height: 1.4;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
+      /* Two lines, not one. displayTitle is already a shortened form, so a
+         single clamped line truncated most real product names twice over.
+         The full title stays available through the title attribute. */
+      -webkit-line-clamp: 2;
   }
 
     .card-main:hover {
@@ -252,21 +266,8 @@ const externalRel = affiliateUrl ? 'sponsored' : undefined;
 
 
 
-  .price-history a {
-      color: var(--accent);
-      font-weight: 600;
-      text-decoration: none;
-  }
-
-  .price-history a:hover,
-  .price-history a:focus-visible {
-      text-decoration: underline;
-  }
-
-  .price-history a:focus-visible {
-      outline: 3px solid var(--accent-hover);
-      outline-offset: 2px;
-  }
+  /* Note: .price-history IS the anchor, so it has no descendant <a>. The
+     rules that targeted `.price-history a` never applied and were removed. */
 
   .price-row {
       display: flex;

@@ -1,6 +1,11 @@
 ---
 // src/pages/terms.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Bump this by hand only when the terms below actually change.
+// Do NOT use new Date() here: that renders the build date, so every routine
+// rebuild would tell visitors the terms had just changed.
+const LAST_UPDATED = 'August 14, 2026';
 ---
 
 <BaseLayout
@@ -10,9 +15,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="page">
     <div class="container-narrow">
       <h1>Terms of Service</h1>
-      <p class="date">Last updated: {new Date().toLocaleDateString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric'
-      })}</p>
+      <p class="date">Last updated: {LAST_UPDATED}</p>
 
       <h2>Acceptance of Terms</h2>
       <p>
@@ -22,16 +25,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <h2>Content</h2>
       <p>
-        We strive to keep deal information accurate, but prices and
-        availability change rapidly. We are not responsible for price changes
-        or stock issues at third-party retailers.
+        Each listing shows the price we observed at the time stated on that
+        listing. Prices and availability change rapidly, and we are not the
+        seller. We are not responsible for price changes, stock issues, order
+        cancellations, or any other aspect of your transaction with a
+        third-party retailer or marketplace seller.
       </p>
 
       <h2>Affiliate Links</h2>
       <p>
-        iPostDeals participates in affiliate marketing programs. Links on this
-        site may earn us a commission on qualifying purchases at no additional
-        cost to you.
+        iPostDeals does not currently participate in any affiliate marketing
+        program, and no link on this site earns us a commission. If that
+        changes, affiliate links will be marked as sponsored and disclosed on
+        our About and Privacy pages.
       </p>
 
       <h2>Limitation of Liability</h2>
