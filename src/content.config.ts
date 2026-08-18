@@ -22,6 +22,8 @@ const deals = defineCollection({
                 priceHistorySource: z.string().min(1).optional(),
                 retailerUrl: z.string().url().optional(),
                 affiliateUrl: z.string().url().optional(),
+                conditionLabel: z.string().min(1).optional(),
+                conditionNote: z.string().min(1).optional(),
 
                 comparisonPrice: z.number().positive().optional(),
                 comparisonPriceLabel: z.string().min(1).optional(),

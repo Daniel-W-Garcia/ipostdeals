@@ -14,6 +14,8 @@ const {
     category,
     comparisonPrice,
     comparisonPriceLabel,
+    conditionLabel,
+    conditionNote,
     coupon,
     displayTitle,
     featured,
@@ -99,6 +101,17 @@ const externalRel = affiliateUrl
 
       {comparisonPriceLabel && (
               <p class="comparison-label">{comparisonPriceLabel}</p>
+      )}
+
+      {(conditionLabel || conditionNote) && (
+              <p class="condition">
+        {conditionLabel && (
+                    <strong>Condition: {conditionLabel}</strong>
+        )}
+        {conditionNote && (
+                    <span>{conditionNote}</span>
+        )}
+      </p>
       )}
 
       {coupon && (
@@ -298,11 +311,27 @@ const externalRel = affiliateUrl
   }
 
   .comparison-label,
+  .condition,
   .source {
       margin: 0;
       color: var(--text-muted);
       font-size: 0.8rem;
       line-height: 1.45;
+  }
+
+  .condition {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+  }
+
+  .condition strong {
+      color: var(--text-secondary);
+      font-weight: 700;
+  }
+
+  .condition span {
+      color: var(--text-muted);
   }
 
   .coupon {
